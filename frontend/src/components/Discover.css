@@ -1,0 +1,33 @@
+/* "Generate LM Powered Assignment" Button */
+.hero-button {
+    background: linear-gradient(to right, #fb5c5c, #fa3e3e);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 999px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .hero-button:hover {
+    background: linear-gradient(to right, #ed3333, #ed3333);
+  }
+  
+  /* Mobile View Fix for the Hero Button */
+  @media (max-width: 768px) {
+    .hero-button {
+      font-size: 1rem; /* Slightly smaller text for mobile */
+      padding: 0.8rem 1.5rem; /* Reduced padding for mobile */
+    }
+  }
+/* This will apply to mobile view only */
+@media (max-width: 640px) {
+    .custom-mobile-adjustment {
+      margin-left: 1rem; /* Adjust this value for more or less movement */
+    }
+  }
+
+  
+    
