@@ -13,32 +13,20 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Install Frontend Dependencies & Build
-        run: |
-          cd frontend
-          npm install --legacy-peer-deps
-          npm run build
-
       - name: Setup SSH Agent (GitHub -> EC2)
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
-      - name: Upload Frontend Build to EC2
+      - name: Run Deployment Script on EC2
+        env:
+          CI: false   # prevents React build from failing due to warnings
         run: |
-          scp -r -o StrictHostKeyChecking=no frontend/build/* \
-            ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/var/www/html/
-
-      - name: Deploy Backend on EC2
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-            cd /home/ubuntu/EdutechexAssessa/backend
-            npm install --legacy-peer-deps
-            pm2 stop all || true
-            pm2 restart all --update-env
+          ssh -T -A \
+            -o ServerAliveInterval=60 \
+            -o ServerAliveCountMax=10 \
+            -o StrictHostKeyChecking=no \
+            ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+              cd /home/ubuntu/
+              ./deploy.sh main
           EOF
