@@ -16,8 +16,8 @@ connectDB(); // Establish MongoDB connection
 const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:5000",
-  "https://www.assessaai.com",
-  "https://assessaai.com"
+  "https://www.edutechexassessa.com",
+  "https://edutechexassessa.com"
 ];
 
 const corsOptions = {
