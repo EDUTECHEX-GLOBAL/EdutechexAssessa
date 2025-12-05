@@ -23,7 +23,12 @@ jobs:
 
       - name: Run Deployment Script on EC2 (with ssh-agent forwarding)
         run: |
-          ssh -A -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-            cd /home/ubuntu/
-            ./deploy.sh main
+          ssh -T -A \
+            -o ServerAliveInterval=60 \
+            -o ServerAliveCountMax=10 \
+            -o StrictHostKeyChecking=no \
+            ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+              cd /home/ubuntu/
+              ./deploy.sh main
           EOF
+
