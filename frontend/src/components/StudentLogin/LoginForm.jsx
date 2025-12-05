@@ -71,7 +71,7 @@ const LoginForm = ({ onSwitch, onForgot }) => {
   return (
     <>
       <h2 className="text-3xl font-bold text-gray-800 mb-8">
-        {role === "student" && "Student Login"}
+        {role === "student" && "Student Login!"}
         {role === "teacher" && "Teacher Login"}
         {role === "admin" && "Admin Login"}
         {!["student", "teacher", "admin"].includes(role) && "Log in"}
